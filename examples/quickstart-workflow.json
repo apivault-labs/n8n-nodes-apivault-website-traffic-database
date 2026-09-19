@@ -1,0 +1,96 @@
+{
+  "id": "c9dbde90-2805-5cc9-a851-9aca0851dbd6",
+  "name": "Website Traffic → Lead priority",
+  "nodes": [
+    {
+      "parameters": {},
+      "id": "917666b4-94b1-5fa6-9de3-2263936c9b73",
+      "name": "When clicking Execute workflow",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        0,
+        120
+      ]
+    },
+    {
+      "parameters": {
+        "content": "## Setup\n1. Select your Apify API credential.\n2. Set traffic, country and category filters.\n3. The workflow assigns a simple outreach priority from the returned business signals.",
+        "height": 260,
+        "width": 440
+      },
+      "id": "d55d27c8-5665-5893-8b2e-5f8ba3b120de",
+      "name": "How to use this workflow",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -40,
+        -220
+      ]
+    },
+    {
+      "parameters": {
+        "workflow": "traffic",
+        "minVisits": 10000,
+        "onlyGrowing": true,
+        "maxResults": 200,
+        "sortBy": "visits",
+        "sortOrder": "desc",
+        "outputPreset": "outreach"
+      },
+      "id": "9c9705ed-0b23-5fb5-8c09-0d9d35ff7bdb",
+      "name": "Find websites by traffic with Apify",
+      "type": "n8n-nodes-apivault-website-traffic-database.websiteTrafficDatabase",
+      "typeVersion": 1,
+      "position": [
+        260,
+        120
+      ]
+    },
+    {
+      "parameters": {
+        "mode": "runOnceForEachItem",
+        "jsCode": "const j = $json; const visits = Number(j.latestMonthVisits ?? j.monthlyVisits ?? j.visits ?? 0); const growth = Number(j.monthlyGrowthPercent ?? j.growthPercent ?? 0); const priority = visits >= 100000 && growth > 0 ? 'high' : visits >= 10000 ? 'medium' : 'low'; return { json: { ...j, outreachPriority: priority, priorityReason: `${visits} estimated monthly visits; ${growth}% growth.` } };"
+      },
+      "id": "77d43f03-ee54-5c4c-950b-6f36983ed71f",
+      "name": "Assign outreach priority",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        560,
+        120
+      ]
+    }
+  ],
+  "connections": {
+    "When clicking Execute workflow": {
+      "main": [
+        [
+          {
+            "node": "Find websites by traffic with Apify",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Find websites by traffic with Apify": {
+      "main": [
+        [
+          {
+            "node": "Assign outreach priority",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "active": false,
+  "versionId": "89c6616c-2b95-5d6a-9580-c9eef47c6c94",
+  "tags": []
+}
