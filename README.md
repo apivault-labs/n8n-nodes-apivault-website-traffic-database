@@ -62,3 +62,15 @@ The package is free. Actor runs are billed by Apify using the pricing shown on t
 ## License
 
 MIT. The hosted Actor is a separate paid service governed by Apify terms.
+
+<!-- apivault-integrations:start -->
+## Hosted Actor and integrations
+
+- [Run Website Traffic Database — Bulk Lookup API on Apify](https://apify.com/apivault_labs/website-traffic-database).
+- [Current pricing and usage terms](https://apify.com/apivault_labs/website-traffic-database/pricing).
+- [n8n community package: n8n-nodes-apivault-website-traffic-database](https://www.npmjs.com/package/n8n-nodes-apivault-website-traffic-database).
+- [Python client](https://github.com/apivault-labs/website-traffic-database-python).
+- [n8n source and usage](https://github.com/apivault-labs/apivault-labs/tree/main/community-nodes/n8n-nodes-apivault-website-traffic-database).
+
+An Apify account and API token are required. Hosted Actor/platform charges apply. npm publication is not n8n verification or confirmation of n8n Cloud availability.
+<!-- apivault-integrations:end -->
